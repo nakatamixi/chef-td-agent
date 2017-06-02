@@ -48,34 +48,34 @@ when "debian"
     if major.nil? || major == '1'
       # version 1.x or no version
       if dist == 'precise'
-        'http://packages.treasuredata.com/precise/'
+        "#{node['td_agent']['source_url']}precise/"
       else
-        'http://packages.treasuredata.com/debian/'
+        "#{node['td_agent']['source_url']}/debian/"
       end
     else
       # version 2.x or later
-      "http://packages.treasuredata.com/#{major}/ubuntu/#{dist}/"
+      "#{node['td_agent']['source_url']}/#{major}/ubuntu/#{dist}/"
     end
 
   apt_repository "treasure-data" do
     uri source
     distribution dist
     components ["contrib"]
-    key "https://packages.treasuredata.com/GPG-KEY-td-agent"
+    key "#{node['td_agent']['gpg_key_url']}/GPG-KEY-td-agent"
     action :add
   end
 when "rhel"
   source =
     if major.nil? || major == '1'
-      "http://packages.treasuredata.com/redhat/$basearch"
+      "#{node['td_agent']['source_url']}/redhat/$basearch"
     else
       # version 2.x or later
-      "http://packages.treasuredata.com/2/redhat/$releasever/$basearch"
+      "#{node['td_agent']['source_url']}/2/redhat/$releasever/$basearch"
     end
 
   yum_repository "treasure-data" do
     url source
-    gpgkey "https://packages.treasuredata.com/GPG-KEY-td-agent"
+    gpgkey "#{node['td_agent']['gpg_key_url']}/GPG-KEY-td-agent"
     action :add
   end
 end

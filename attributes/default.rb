@@ -18,3 +18,5 @@ default["td_agent"]["in_http"] = {
   port: 8888,
   bind: '0.0.0.0'
 }
+default["td_agent"]["source_url"] = "http://packages.treasuredata.com"
+default["td_agent"]["gpg_key_url"] = "https://packages.treasuredata.com"
